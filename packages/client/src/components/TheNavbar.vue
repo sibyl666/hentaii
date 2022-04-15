@@ -2,10 +2,12 @@
 import TheLogout from "./TheLogout.vue";
 import TheLogin from "./TheLogin.vue";
 import TheSearch from "./TheSearch.vue";
+import axios from "axios";
 
 import { ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { Manga } from "../types";
 const router = useRouter();
 const store = useStore();
 const isOpen = ref(false);
@@ -13,13 +15,22 @@ const isOpen = ref(false);
 const toggleMenu = () => isOpen.value = !isOpen.value;
 const toUpload = () => router.push("/upload");
 const toFavorites = () => router.push("/favorites");
+const toRandom = async () => {
+  const resp = await axios.get<Manga>("/manga/random", { withCredentials: true });
+  router.push({
+    name: "Manga",
+    params: {
+      id: resp.data.id
+    }
+  })
+}
 const toHome = () => router.push("/");
 </script>
 
 <template>
   <div class="flex flex-col p-1 gap-2">
     <div class="flex gap-2 items-center">
-      <button class="hidden md:flex" v-if="store.state.user.permissions?.includes('UPLOAD')" 
+      <button class="hidden md:flex" v-if="store.state.user.permissions?.includes('UPLOAD')"
         @click="toUpload">Upload</button>
 
       <TheSearch />
@@ -29,6 +40,7 @@ const toHome = () => router.push("/");
         <TheLogin v-if="!store.state.user.username" />
         <div class="flex gap-2" v-else>
           <button @click="toHome">Home</button>
+          <button @click="toRandom">Random</button>
           <button @click="toFavorites">Favorites</button>
           <div class="bg-zinc-800 rounded w-1 h-full mx-1" />
           <TheLogout />
@@ -37,10 +49,9 @@ const toHome = () => router.push("/");
     </div>
 
 
-    <div class="flex flex-col overflow-hidden md:hidden max-h-0 transition-all gap-2" :class="{ 'max-h-96 p-2': isOpen }">
-      <button v-if="store.state.user.permissions?.includes('UPLOAD')" 
-        @click="toUpload">Upload</button>
-
+    <div class="flex flex-col overflow-hidden md:hidden max-h-0 transition-all gap-2"
+      :class="{ 'max-h-96 p-2': isOpen }">
+      <button v-if="store.state.user.permissions?.includes('UPLOAD')" @click="toUpload">Upload</button>
 
       <div class="flex flex-col gap-2" v-if="store.state.user.username">
         <button @click="toFavorites">Favorites</button>
@@ -49,6 +60,7 @@ const toHome = () => router.push("/");
       <TheLogin v-else />
 
       <button @click="toHome">Home</button>
+      <button @click="toRandom">Random</button>
     </div>
   </div>
 </template>

@@ -44,6 +44,12 @@ export const getManga = async (id: string) => {
   }, { projection: { _id: 0 } })
 }
 
+export const getRandom = async () => {
+  return await (await getDatabase()).collection("mangas").aggregate([
+    { $sample: { size: 1 } }
+  ])
+}
+
 export const favorite = async (userId: string, mangaId: string) => {
   return await (await getDatabase()).collection("users").updateOne({
     userId

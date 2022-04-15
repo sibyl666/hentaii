@@ -13,6 +13,7 @@ import {
   search,
   getFavorites,
   totalCount,
+  getRandom,
 } from "../database/mangaWrapper";
 import { getUserFromSessionId } from "../database/authWrapper";
 import { rm } from "fs/promises";
@@ -162,5 +163,12 @@ mangaRouter.delete("/favorite", checkCookies, async (req, res) => {
   await delFavorite(user.id, manga.id);
   res.send({ status: "ok" });
 });
+
+mangaRouter.get("/random", checkCookies, async (req, res) => {
+  const random = await getRandom();
+  const doc = await random.next();
+
+  res.send(doc)
+})
 
 export default mangaRouter;

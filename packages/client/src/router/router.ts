@@ -49,7 +49,7 @@ const router = createRouter({
       name: "Favorites",
       path: "/favorites",
       component: Favorites,
-    },
+    }
   ],
   history: createWebHistory(),
   scrollBehavior: (to, _, savedPosition) => {
