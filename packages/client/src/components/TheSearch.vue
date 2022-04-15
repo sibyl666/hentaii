@@ -18,7 +18,7 @@ watch(query, () => {
     return;
   }
 
-  queryTimeout = setTimeout(() => {
+  queryTimeout = window.setTimeout(() => {
     router.push({ name: "Search", query: { q: query.value }});
   }, 1000)
 })
