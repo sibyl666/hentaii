@@ -1,0 +1,49 @@
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+@layer base {
+  html, body, #app {
+    @apply w-full h-full no-scrollbar;
+    @apply bg-zinc-900 text-white;
+    @apply font-outfit;
+  }
+
+  #app {
+    @apply flex flex-col;
+  }
+
+  button {
+    @apply px-6 py-2 rounded bg-rose-500 hover:bg-rose-600 transition-colors;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .ib-padding {
+    @apply px-4 py-2;
+  }
+
+  .input {
+    @apply outline-none bg-zinc-800 rounded;
+  }
+
+  .text-last-center {
+    text-align-last: center;
+  }
+}

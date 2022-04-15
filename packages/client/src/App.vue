@@ -1,21 +1,28 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import NavbarVue from "./components/TheNavbar.vue";
+import { useStore } from "vuex";
+const store = useStore();
+
+if (store.state.user.username) {
+  store.dispatch("update");
+}
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <suspense :timeout="0">
+    <router-view v-slot="{ Component, route }">
+      <div id="content" class="p-2 flex flex-col gap-2 flex-1">
+        <NavbarVue />
+        <keep-alive :max="2">
+          <component :is="Component" :key="route.path" />
+        </keep-alive>
+    </div>
+    </router-view>
+
+    <template #fallback> Loading... </template>
+  </suspense>
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
