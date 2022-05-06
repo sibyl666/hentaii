@@ -1,33 +1,36 @@
 <script setup lang="ts">
 import axios from "axios";
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { ref } from "vue";
 const store = useStore();
 
 const props = defineProps<{
   id: string
 }>();
 
-const isFavorited = computed(() => store.getters.isFavorited(props.id))
-const favorite = async () => {
-  if (isFavorited.value) {
-    await axios.delete("/manga/favorite", {
-      withCredentials: true,
-      data: { id: props.id }
-    })
-    store.dispatch("delFavorite", props.id);
-    return
-  }
+const isFavorited = ref<boolean>(store.getters.isFavorited(props.id));
 
-  await axios.post("/manga/favorite", {
-    id: props.id
-  }, { withCredentials: true });
-  store.dispatch("addFavorite", { id: props.id });
+const toggleFavorite = async () => {
+  await axios({
+    url: "/manga/favorite",
+    method: isFavorited.value ? "DELETE" : "POST",
+    data: {
+      id: props.id
+    },
+    withCredentials: true
+  });
+
+  store.dispatch(
+    isFavorited.value ? "delFavorite" : "addFavorite",
+    { id: props.id }
+  );
+
+  isFavorited.value = !isFavorited.value;
 }
 </script>
 
 <template>
-  <button v-if="store.state.user.username" class="flex items-center gap-1.5" @click="favorite">
+  <button v-if="store.state.user.username" class="flex items-center gap-1.5" @click="toggleFavorite">
     <template v-if="isFavorited">
       <svg height="24px" viewBox="0 0 24 24" width="24px" fill="white">
         <path d="M0 0h24v24H0V0z" fill="none" />
