@@ -1,4 +1,4 @@
-type Permission = "UPLOAD" | "DELETE";
+export type Permission = "UPLOAD" | "DELETE";
 
 export interface User {
   id: string,

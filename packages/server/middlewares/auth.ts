@@ -1,6 +1,7 @@
 import axios from "axios";
 import { RequestHandler } from "express";
 import { getUserFromSessionId } from "../database/authWrapper";
+import { Permission } from "../types";
 
 export const checkUsernamePassword: RequestHandler = async (req, res, next) => {
   if (!req.body.username || !req.body.password || !req.body.token) {
@@ -21,7 +22,7 @@ export const checkUsernamePassword: RequestHandler = async (req, res, next) => {
   next();
 };
 
-export const checkPermissions = (perm: string) => {
+export const checkPermissions = (perm: Permission) => {
   const checkPermissions: RequestHandler = async (req, res, next) => {
     if (!req.cookies.sessionid) {
       return res.status(403).send("Forbidden!");
