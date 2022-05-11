@@ -118,11 +118,7 @@ mangaRouter.get("/favorites", checkCookies, async (req, res) => {
     return res.status(403).send("Forbidden!");
   }
 
-  if (!req.query.ids) {
-    return res.status(406).send("Ids are required!");
-  }
-
-  const result = await getFavorites(req.query.ids as string[], offset - 1, 20);
+  const result = await getFavorites(user, offset - 1, 20);
   res.send(result);
 });
 

@@ -1,12 +1,5 @@
 import { getDatabase } from "./wrapper";
-
-interface Manga {
-  id: string,
-  title: string,
-  artist?: string,
-  tags?: string[],
-  count: number
-}
+import { User, Manga } from "../types";
 
 export var totalCount = 0;
 const updateCount = async () => {
@@ -62,11 +55,11 @@ export const delFavorite = async (userId: string, mangaId: string) => {
   }, { $pull: { favorites: mangaId }})
 }
 
-export const getFavorites = async (favorites: string[], offset: number, count: number) => {
+export const getFavorites = async (user: User, offset: number, count: number) => {
   let skip = Math.abs(Math.floor(offset * 20));
 
   return await (await getDatabase()).collection("mangas").find({
-    id: { $in: favorites }
+    id: { $in: user.favorites }
   })
   .sort({ _id: -1 })
   .skip(skip)

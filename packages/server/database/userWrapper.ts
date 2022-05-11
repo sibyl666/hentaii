@@ -1,9 +1,10 @@
 import { storeSessionId } from "./authWrapper";
 import { getDatabase } from "./wrapper";
+import { User } from "../types";
 import bcrypt from "bcrypt";
 
 export const getUser = async (username: string) => {
-  return (await getDatabase()).collection("users").findOne({
+  return (await getDatabase()).collection<User>("users").findOne({
     username
   })
 }

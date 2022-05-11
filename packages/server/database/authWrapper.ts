@@ -1,5 +1,6 @@
 import { getDatabase } from "./wrapper";
 import { randomBytes } from "crypto";
+import { User } from "../types";
 
 export const generateSessionId = async () => {
   return await randomBytes(20).toString("hex");
@@ -29,7 +30,7 @@ export const getUserFromSessionId = async (sessionId: string) => {
 
   if (!session) return;
 
-  return await (await getDatabase()).collection("users").findOne({
+  return await (await getDatabase()).collection<User>("users").findOne({
     username: session!.username
   }, { projection: {
     _id: 0,

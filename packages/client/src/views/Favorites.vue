@@ -14,7 +14,6 @@ const favorites = store.state.user.favorites;
 const getFavorites = async () => {
   const resp = await axios.get<Manga[]>("/manga/favorites", {
     params: {
-      ids: favorites,
       page: route.query.page || 1
     },
     withCredentials: true
