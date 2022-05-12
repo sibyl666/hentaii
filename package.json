@@ -1,9 +1,11 @@
 {
   "name": "hentaii",
   "version": "1.0.0",
+  "scripts": {
+    "dev:all": "npm run dev --workspace=client --workspace=server"
+  },
   "workspaces": [
-    "packages/client",
-    "packages/server"
+    "packages/*"
   ],
   "dependencies": {
     "axios": "^0.26.1",

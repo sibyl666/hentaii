@@ -7,7 +7,7 @@ import axios from "axios";
 import { ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { Manga } from "../types";
+import { Manga } from "@hentaii/shared";
 const router = useRouter();
 const store = useStore();
 const isOpen = ref(false);

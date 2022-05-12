@@ -5,7 +5,7 @@ import MangaCover from "../components/MangaCover.vue";
 import { ref, watch } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
-import { Manga } from "../types";
+import { Manga } from "@hentaii/shared";
 const store = useStore();
 const route = useRoute();
 const mangas = ref<Manga[]>([]);

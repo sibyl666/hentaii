@@ -2,7 +2,7 @@
 import axios from "axios";
 import { watchEffect, ref } from "vue";
 import { useRoute } from "vue-router";
-import { Manga } from "../types";
+import { Manga } from "@hentaii/shared";
 import MangaCover from "../components/MangaCover.vue";
 const route = useRoute();
 const mangas = ref();

@@ -6,6 +6,10 @@ import bcrypt from "bcrypt";
 export const getUser = async (username: string) => {
   return (await getDatabase()).collection<User>("users").findOne({
     username
+  }, {
+    projection: {
+      favorites: 0
+    }
   })
 }
 

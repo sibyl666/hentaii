@@ -14,6 +14,10 @@ interface User {
   favorites?: string[]
 }
 
+interface FavoriteParams {
+  id: string
+}
+
 export default createStore({
   plugins: [createPersistedState()],
   state: {
@@ -56,10 +60,10 @@ export default createStore({
       const resp = await axios.get("/auth/me", { withCredentials: true });
       commit("SET_USER", resp.data);
     },
-    async addFavorite({ commit }, { id }: { id: string }) {
+    async addFavorite({ commit }, { id }: FavoriteParams) {
       commit("ADD_FAVORITE", id);
     },
-    async delFavorite({ commit }, { id }: { id: string }) {
+    async delFavorite({ commit }, { id }: FavoriteParams) {
       commit("DEL_FAVORITE", id);
     }
   },

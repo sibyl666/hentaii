@@ -1,5 +1,5 @@
 import { getDatabase } from "./wrapper";
-import { User, Manga } from "../types";
+import { User, Manga } from "@hentaii/shared";
 
 export var totalCount = 0;
 const updateCount = async () => {

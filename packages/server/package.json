@@ -6,6 +6,7 @@
     "start": "node dist/main.js"
   },
   "dependencies": {
+    "@hentaii/shared": "^1.0.0",
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.2",
     "@types/cors": "^2.8.12",

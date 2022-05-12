@@ -4,7 +4,7 @@ import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import TheFavoriteButton from "../components/TheFavoriteButton.vue";
 import TheDeleteButton from "../components/TheDeleteButton.vue";
-import { Manga } from "../types";
+import { Manga } from "@hentaii/shared";
 
 const imgBase = import.meta.env.VITE_IMG_BASE_URL;
 

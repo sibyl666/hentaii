@@ -1,8 +1,8 @@
 <script setup lang="ts">;
-import axios from 'axios';
-import { computed, ref, watch } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
-import { Manga } from '../types';
+import axios from "axios";
+import { computed, ref, watch } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { Manga } from "@hentaii/shared";
 
 const route = useRoute();
 const router = useRouter();

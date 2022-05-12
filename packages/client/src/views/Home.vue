@@ -5,7 +5,7 @@ import { useRoute } from "vue-router";
 
 import MangaCover from "../components/MangaCover.vue";
 import Pages from "../components/Pages.vue";
-import { Manga } from "../types";
+import { Manga } from "@hentaii/shared";
 
 const route = useRoute();
 const mangas = ref();

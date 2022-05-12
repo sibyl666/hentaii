@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Manga } from "../types";
+import { Manga } from "@hentaii/shared";
 const imgBase = import.meta.env.VITE_IMG_BASE_URL;
 
 defineProps<{
