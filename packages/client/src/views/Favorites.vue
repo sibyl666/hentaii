@@ -2,44 +2,31 @@
 import axios from "axios"
 import Pages from "../components/Pages.vue";
 import MangaCover from "../components/MangaCover.vue";
-import { ref, watch } from "vue";
-import { useStore } from "vuex";
+import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { Manga } from "@hentaii/shared";
-const store = useStore();
+
 const route = useRoute();
 const mangas = ref<Manga[]>([]);
-const favorites = store.state.user.favorites;
 
-const getFavorites = async () => {
-  const resp = await axios.get<Manga[]>("/manga/favorites", {
-    params: {
-      page: route.query.page || 1
-    },
-    withCredentials: true
-  });
+const resp = await axios.get<Manga[]>("/manga/favorites", {
+  params: {
+    page: route.query.page || 1
+  },
+  withCredentials: true
+});
 
-  mangas.value = resp.data;
-}
-
-if (favorites.length >= 0) {
-  await getFavorites();
-}
-
-watch(() => route.query.page,() => {
-  if (!route.query.page) return;
-  getFavorites();
-})
+mangas.value = resp.data;
 </script>
 
 <template>
-  <div class="flex flex-col items-center gap-4">
-    <Pages to="Favorites" :totalCount="favorites?.length" />
+  <div v-if="mangas.length > 0" class="flex flex-col items-center gap-4">
+    <Pages to="Favorites" :totalCount="mangas?.length" />
     <div class="flex flex-wrap justify-center gap-2 max-w-7xl">
       <MangaCover v-for="manga in mangas" :key="manga.id" :manga="manga" />
     </div>
-    <Pages to="Favorites" :totalCount="favorites?.length" />
+    <Pages to="Favorites" :totalCount="mangas?.length" />
   </div>
 
-  <p class="text-center" v-if="!mangas">It's empty here!</p>
+  <p v-else class="text-center">It's empty here!</p>
 </template>

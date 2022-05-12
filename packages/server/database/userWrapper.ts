@@ -1,6 +1,6 @@
 import { storeSessionId } from "./authWrapper";
 import { getDatabase } from "./wrapper";
-import { User } from "../types";
+import { User } from "@hentaii/shared";
 import bcrypt from "bcrypt";
 
 export const getUser = async (username: string) => {

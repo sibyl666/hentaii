@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "scripts": {
-    "dev": "set DEV=true && node dist/main.js",
+    "dev": "set DEV=true && npx tsc && node dist/main.js",
     "start": "node dist/main.js"
   },
   "dependencies": {

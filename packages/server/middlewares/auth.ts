@@ -1,7 +1,7 @@
 import axios from "axios";
 import { RequestHandler } from "express";
 import { getUserFromSessionId } from "../database/authWrapper";
-import { Permission } from "../types";
+import { Permission } from "@hentaii/shared";
 
 export const checkUsernamePassword: RequestHandler = async (req, res, next) => {
   if (!req.body.username || !req.body.password || !req.body.token) {

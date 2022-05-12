@@ -112,10 +112,14 @@ mangaRouter.get("/search", async (req, res) => {
 
 mangaRouter.get("/favorites", checkCookies, async (req, res) => {
   let offset = parseInt(req.query.page as string) || 0;
-
+  
   const user = await getUserFromSessionId(req.cookies.sessionid);
   if (!user) {
     return res.status(403).send("Forbidden!");
+  }
+
+  if (!user?.favorites || user.favorites.length == 0) {
+    return res.status(200).send([]);
   }
 
   const result = await getFavorites(user, offset - 1, 20);

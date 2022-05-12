@@ -1,6 +1,6 @@
 import { getDatabase } from "./wrapper";
 import { randomBytes } from "crypto";
-import { User } from "../types";
+import { User } from "@hentaii/shared";
 
 export const generateSessionId = async () => {
   return await randomBytes(20).toString("hex");
