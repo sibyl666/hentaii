@@ -12,7 +12,7 @@ if (process.env.DEV) {
   app.use(express.static("./mangas"))
 }
 
-const corsWhileList = ["https://hentaii.xyz", "https://www.hentaii.xyz"];
+const corsWhileList = ["https://hentaii.xyz", "https://www.hentaii.xyz/"];
 app.use(cors({
   credentials: true,
   origin: process.env.DEV ? "http://localhost:3000" : corsWhileList
