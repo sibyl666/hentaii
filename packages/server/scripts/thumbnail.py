@@ -26,5 +26,5 @@ for manga_id in os.listdir(manga_folder):
         ratio = width / height
         new_width = int(ratio * new_thumb_height)
 
-        img = first_img.resize((new_width, new_thumb_height), Image.Resampling.LANCZOS)
+        img = first_img.resize((new_width, new_thumb_height), Image.LANCZOS)
         img.save(jpg_thumbnail, optimize=True, quality=quality)

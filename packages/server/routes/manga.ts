@@ -57,7 +57,7 @@ mangaRouter.post("/upload", checkPermissions("UPLOAD"), async (req, res) => {
 
     res.send({ status: "ok" });
 
-    exec("python3 ./scripts/thumbnail.py");
+    exec("python ./scripts/thumbnail.py");
   });
 });
 
