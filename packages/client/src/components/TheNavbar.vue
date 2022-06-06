@@ -36,11 +36,11 @@ const toHome = () => router.push("/");
       <TheSearch />
       <img @click="toggleMenu" src="../assets/menu.svg" class="p-1 bg-red-500 rounded md:hidden">
 
-      <div class="hidden md:flex">
+      <div class="hidden md:flex gap-2">
+        <button @click="toHome">Home</button>
+        <button @click="toRandom">Random</button>
         <TheLogin v-if="!store.state.user.username" />
         <div class="flex gap-2" v-else>
-          <button @click="toHome">Home</button>
-          <button @click="toRandom">Random</button>
           <button @click="toFavorites">Favorites</button>
           <div class="bg-zinc-800 rounded w-1 h-full mx-1" />
           <TheLogout />
