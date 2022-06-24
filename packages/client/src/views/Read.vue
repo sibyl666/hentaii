@@ -1,57 +1,50 @@
 <script setup lang="ts">;
 import axios from "axios";
-import { computed, ref, watch } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { ref, computed, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { Manga } from "@hentaii/shared";
 
-const route = useRoute();
-const router = useRouter();
 const props = defineProps<{
   id: string,
   page: string,
-  count?: string
+  count?: string 
 }>();
 
+const route = useRoute();
+const router = useRouter();
 const currentPage = ref(Number(props.page));
-const pageCount = ref(Number(props.count));
+const totalPage = ref(Number(props.count));
+
 const imgSrc = computed(() => 
   `${import.meta.env.VITE_IMG_BASE_URL}/${props.id}/${currentPage.value.toString().padStart(3, "0")}.jpg`
 )
 
-if (!pageCount.value) {
+if (!totalPage.value) {
   const resp = await axios.get<Manga>("/manga/get", {
     params: { id: props.id }
   });
 
-  pageCount.value = resp.data.count;
+  totalPage.value = resp.data.count;
 }
 
 const toLeft = () => {
   if (currentPage.value <= 1) return;
 
   currentPage.value--;
-  router.push({ name: "Read", params: {
-    id: props.id,
-    page: currentPage.value,
-    count: pageCount.value
-  }})
 }
 
 const toRight = () => {
-  if (currentPage.value >= pageCount.value) return;
+  if (currentPage.value >= totalPage.value) return;
 
   currentPage.value++;
-  router.push({ name: "Read", params: {
-    id: props.id,
-    page: currentPage.value,
-    count: pageCount.value
-  }})
 }
 
-watch(() => route.params.page, () => {
-  if (!route.params.page) return;
-  
-  currentPage.value = Number(route.params.page);
+watch(currentPage, () => {
+  history.pushState(
+    {},
+    "",
+    `${import.meta.env.VITE_BASE_URL}/manga/${route.params.id}/${currentPage.value}`
+  )
 })
 </script>
 

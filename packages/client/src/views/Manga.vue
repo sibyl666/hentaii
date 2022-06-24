@@ -33,7 +33,9 @@ const addPadding = (num: number) => {
 }
 
 const toRead = (id: string, page: number, count: number) => {
+  console.log("xd");
   router.push({ name: "Read", params: { id, page, count } })
+  console.log("xe");
 }
 </script>
 
